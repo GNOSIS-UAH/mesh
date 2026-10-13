@@ -1,5 +1,8 @@
 # Web del proyecto MESH
 
+<img src="public/img/mesh-logo.png" alt="MESH" width="128" align="right">
+
+
 Sitio estático construido con [Astro](https://astro.build), con la misma hoja de estilos (convenciones al-folio: Roboto, un color de acento en `--global-theme-color`, barra y pie fijos, modo oscuro automático) que la web del proyecto APT-GRAN y la web personal del IP. Todo el contenido vive en `src/content/` como ficheros Markdown con cabecera YAML; no hace falta tocar código para añadir noticias, resultados, publicaciones, recursos o personas.
 
 ## Uso
