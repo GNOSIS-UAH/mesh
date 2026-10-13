@@ -5,4 +5,5 @@ rol_en: "PhD student · Thesis on graph-based self-organisation of intelligent s
 grupo: "NetIS / GNOSIS, Universidad de Alcalá"
 tipo: formacion
 orden: 30
+orcid: "0000-0002-5746-3597"
 ---
