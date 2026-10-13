@@ -76,7 +76,7 @@ const equipo = defineCollection({
     rol_en: z.string().optional(),
     // afiliación: grupo o institución
     grupo: z.string(),
-    tipo: z.enum(['investigacion', 'trabajo', 'colaborador', 'contratado']).default('investigacion'),
+    tipo: z.enum(['investigacion', 'trabajo', 'colaborador', 'formacion', 'contratado']).default('investigacion'),
     orden: z.number(),
     orcid: z.string().optional(),
     web: z.string().url().optional(),
