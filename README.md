@@ -52,6 +52,10 @@ El español se sirve en la raíz y el inglés en `/en/`. Cada página tiene su e
 - **Estadísticas**: GoatCounter, sitio `mesh-uah` (`goatcounter` en `src/i18n.ts`), sin cookies ni datos personales.
 - **Hugging Face**: todavía apunta a la portada general en `src/components/Social.astro`; cambiarlo cuando exista la organización del proyecto. Si se crean cuentas en redes sociales, añadirlas en el mismo fichero.
 
+## Datos estructurados
+
+`src/components/JsonLd.astro` genera en cada página un bloque JSON-LD de schema.org con la universidad, los grupos, el proyecto (`ResearchProject` con su `MonetaryGrant`), las personas del equipo (con su ORCID como identificador), el sitio y la página. En publicaciones, recursos y resultados añade además cada entrada (`ScholarlyArticle`, `Dataset`, `SoftwareSourceCode`, `Thesis`). Los datos fijos del proyecto están en `proyecto`, en `src/i18n.ts`.
+
 ## Identidad visual
 
 - Color de acento `#3b5bdb` (claro) y `#91a7ff` (oscuro) en `src/styles/global.css`.

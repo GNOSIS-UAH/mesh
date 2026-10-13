@@ -81,3 +81,28 @@ export const rutaAlterna = (lang: Lang, rutaSinBase: string) => {
 
 export const fecha = (d: Date, lang: Lang, opciones: Intl.DateTimeFormatOptions) =>
   d.toLocaleDateString(textos[lang].locale, opciones).replace('.', '');
+
+// Datos del proyecto para los datos estructurados (schema.org) de JsonLd.astro.
+export const proyecto = {
+  acronimo: 'MESH',
+  titulo: 'Metaheurísticas estructurales mejoradas multicapa para optimización distribuida',
+  titulo_en: 'Multilayer Enhanced Structural metaHeuristics for distributed optimization',
+  referencia,
+  inicio: '2026-09-01',
+  fin: '2029-08-31',
+  importe: 85000,
+  sameAs: [fichaUAH, 'https://edelahozuah.github.io/investigacion/#mesh', 'https://zenodo.org/communities/mesh-uah/', repositorio],
+  financiador: {
+    nombre: 'Ministerio de Ciencia, Innovación y Universidades / Agencia Estatal de Investigación',
+    nombre_en: 'Spanish Ministry of Science, Innovation and Universities / State Research Agency',
+    url: 'https://www.aei.gob.es/',
+    sameAs: ['https://ror.org/003x0zc53', 'https://doi.org/10.13039/501100011033'],
+  },
+  convocatoria: 'Proyectos de Generación de Conocimiento 2025, Plan Estatal de Investigación Científica, Técnica y de Innovación 2024-2027',
+  convocatoria_en: 'Knowledge Generation Projects 2025, Spanish State Plan for Scientific, Technical and Innovation Research 2024-2027',
+  grupos: [
+    { id: 'netis', clave: 'NetIS', nombre: 'NetIS, Grupo de Investigación Redes y Sistemas Inteligentes', nombre_en: 'NetIS, Networks and Intelligent Systems research group', url: 'https://netis.web.uah.es/' },
+  ],
+  palabrasClave: ['sistemas distribuidos', 'optimización distribuida', 'grafos multicapa', 'grafos factor', 'metaheurísticas', 'negociación automática', 'paso de mensajes'],
+  palabrasClave_en: ['distributed systems', 'distributed optimization', 'multilayer graphs', 'factor graphs', 'metaheuristics', 'automated negotiation', 'message passing'],
+};

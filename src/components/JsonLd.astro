@@ -1,0 +1,111 @@
+---
+// Datos estructurados (schema.org) de la página, en un único @graph: la
+// universidad, los grupos, el proyecto (ResearchProject con su MonetaryGrant),
+// las personas del equipo, el sitio y la página actual. Según `jsonld`, añade
+// además las publicaciones, los recursos o las tesis y trabajos académicos.
+import { getCollection } from 'astro:content';
+import { textos, proyecto, urlSitio, type Lang } from '../i18n';
+
+interface Props { lang: Lang; ruta: string; titulo: string; descripcion: string; jsonld?: 'publicaciones' | 'recursos' | 'resultados' }
+const { lang, ruta, titulo, descripcion, jsonld } = Astro.props;
+const t = textos[lang];
+const en = lang === 'en';
+const sitio = urlSitio.replace(/\/$/, '');
+const pagina = `${sitio}${ruta === '/' ? '/' : ruta + '/'}`;
+const ID = { uah: `${sitio}/#uah`, proyecto: `${sitio}/#proyecto`, ayuda: `${sitio}/#ayuda`, web: `${sitio}/#web` };
+const slug = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const personas = (s: string) => s.split(/\s*(?:,|;| y | and |&)\s*/).filter(Boolean).map((name) => ({ '@type': 'Person', name }));
+const esIP = (rol: string) => /principal/i.test(rol);
+
+const uah = {
+  '@type': 'CollegeOrUniversity', '@id': ID.uah, name: en ? 'University of Alcalá' : 'Universidad de Alcalá',
+  alternateName: 'UAH', url: 'https://www.uah.es/', sameAs: ['https://ror.org/04pmn0e78', 'https://www.wikidata.org/wiki/Q750631'],
+  address: { '@type': 'PostalAddress', addressLocality: 'Alcalá de Henares', addressRegion: 'Madrid', postalCode: '28801', addressCountry: 'ES' },
+};
+const grupos = proyecto.grupos.map((g) => ({
+  '@type': 'ResearchOrganization', '@id': `${sitio}/#${g.id}`, name: en ? g.nombre_en : g.nombre, alternateName: g.clave, url: g.url, parentOrganization: { '@id': ID.uah },
+}));
+const grupoDe = (texto: string) => proyecto.grupos.find((g) => texto.includes(g.clave));
+
+const equipo = (await getCollection('equipo')).sort((a, b) => a.data.orden - b.data.orden);
+const personasEquipo = equipo.map((p) => {
+  const g = grupoDe(p.data.grupo);
+  return {
+    '@type': 'Person', '@id': p.data.orcid ? `https://orcid.org/${p.data.orcid}` : `${sitio}/#${slug(p.data.nombre)}`,
+    name: p.data.nombre, jobTitle: (en && p.data.rol_en) || p.data.rol,
+    affiliation: g ? { '@id': `${sitio}/#${g.id}` } : { '@type': 'Organization', name: p.data.grupo },
+    ...(p.data.web && { url: p.data.web }),
+    ...(p.data.orcid && { identifier: { '@type': 'PropertyValue', propertyID: 'ORCID', value: p.data.orcid } }),
+  };
+});
+const miembros = equipo.map((p) => {
+  const ref = { '@id': p.data.orcid ? `https://orcid.org/${p.data.orcid}` : `${sitio}/#${slug(p.data.nombre)}` };
+  return esIP(p.data.rol) ? { '@type': 'Role', roleName: 'Principal Investigator', member: ref } : ref;
+});
+
+const ayuda = {
+  '@type': 'MonetaryGrant', '@id': ID.ayuda, identifier: proyecto.referencia, name: en ? proyecto.convocatoria_en : proyecto.convocatoria,
+  funder: { '@type': 'Organization', name: en ? proyecto.financiador.nombre_en : proyecto.financiador.nombre, url: proyecto.financiador.url, sameAs: proyecto.financiador.sameAs },
+  fundedItem: { '@id': ID.proyecto },
+  ...(proyecto.importe && { amount: { '@type': 'MonetaryAmount', currency: 'EUR', value: proyecto.importe } }),
+};
+const nodoProyecto = {
+  '@type': 'ResearchProject', '@id': ID.proyecto, name: en ? proyecto.titulo_en : proyecto.titulo, alternateName: proyecto.acronimo,
+  identifier: proyecto.referencia, url: `${sitio}/${en ? 'en/' : ''}`, sameAs: proyecto.sameAs, description: t.descripcion,
+  keywords: (en ? proyecto.palabrasClave_en : proyecto.palabrasClave).join(', '),
+  foundingDate: proyecto.inicio, dissolutionDate: proyecto.fin,
+  parentOrganization: { '@id': ID.uah }, department: grupos.map((g) => ({ '@id': g['@id'] })),
+  member: miembros, funding: { '@id': ID.ayuda },
+};
+const web = {
+  '@type': 'WebSite', '@id': ID.web, name: t.tituloSitio, url: `${sitio}/`, inLanguage: ['es', 'en'], about: { '@id': ID.proyecto }, publisher: { '@id': ID.uah },
+};
+const nodoPagina = {
+  '@type': 'WebPage', '@id': pagina, url: pagina, name: `${titulo} | ${t.tituloSitio}`, description: descripcion, inLanguage: t.locale, isPartOf: { '@id': ID.web }, about: { '@id': ID.proyecto },
+};
+
+const extra: Record<string, unknown>[] = [];
+if (jsonld === 'publicaciones') {
+  for (const p of await getCollection('publicaciones')) {
+    const d = p.data;
+    const academica = d.tipo === 'revista' || d.tipo === 'congreso' || d.tipo === 'capitulo';
+    extra.push({
+      '@type': academica ? 'ScholarlyArticle' : 'CreativeWork', '@id': d.doi ? `https://doi.org/${d.doi}` : `${pagina}#${p.id}`,
+      name: (en && d.titulo_en) || d.titulo, author: personas(d.autores), datePublished: String(d.anio),
+      isPartOf: { '@type': d.tipo === 'revista' ? 'Periodical' : 'CreativeWork', name: (en && d.venue_en) || d.venue },
+      ...(d.doi && { identifier: { '@type': 'PropertyValue', propertyID: 'DOI', value: d.doi } }),
+      ...(d.url && { url: d.url }), ...(d.estado !== 'publicado' && { creativeWorkStatus: d.estado }),
+      funding: { '@id': ID.ayuda },
+    });
+  }
+}
+if (jsonld === 'recursos') {
+  for (const r of await getCollection('recursos')) {
+    const d = r.data;
+    const tipo = d.tipo === 'dataset' ? 'Dataset' : d.tipo === 'documento' ? 'CreativeWork' : 'SoftwareSourceCode';
+    const sameAs = [d.zenodo, d.huggingface].filter(Boolean);
+    extra.push({
+      '@type': tipo, '@id': d.zenodo ?? d.github ?? `${pagina}#${r.id}`, name: d.titulo, description: (en && d.resumen_en) || d.resumen,
+      ...(d.github && { codeRepository: d.github, url: d.github }), ...(sameAs.length && { sameAs }),
+      ...(d.licencia && { license: d.licencia }), ...(d.cita && { citation: d.cita }),
+      ...(d.tipo === 'modelo' && { additionalType: 'https://schema.org/MachineLearningModel' }),
+      producer: { '@id': ID.proyecto }, funding: { '@id': ID.ayuda }, isAccessibleForFree: true,
+    });
+  }
+}
+if (jsonld === 'resultados') {
+  const trabajos = await getCollection('resultados', ({ id, data }) => data.clase !== 'resultado' && en === id.startsWith('en/'));
+  for (const r of trabajos) {
+    const d = r.data;
+    extra.push({
+      '@type': 'Thesis', '@id': d.enlaces[0]?.url ?? `${pagina}#${r.id.replace(/^en\//, '')}`, name: d.titulo, description: d.resumen,
+      ...(d.autor && { author: { '@type': 'Person', name: d.autor } }), ...(d.direccion && { contributor: personas(d.direccion) }),
+      datePublished: d.fecha.toISOString().slice(0, 10), ...(d.titulacion && { inSupportOf: d.titulacion }),
+      ...(d.enlaces[0] && { url: d.enlaces[0].url }), sourceOrganization: { '@id': ID.uah }, inLanguage: lang, funding: { '@id': ID.ayuda },
+    });
+  }
+}
+
+const grafo = { '@context': 'https://schema.org', '@graph': [uah, ...grupos, nodoProyecto, ayuda, ...personasEquipo, web, nodoPagina, ...extra] };
+---
+<script type="application/ld+json" set:html={JSON.stringify(grafo)} />
