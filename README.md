@@ -44,13 +44,21 @@ El español se sirve en la raíz y el inglés en `/en/`. Cada página tiene su e
 - `src/pages/recursos.astro`: tarjetas con enlaces a GitHub, Zenodo y Hugging Face.
 - `src/pages/equipo.astro`: fichas agrupadas por tipo, colaboraciones y contacto.
 
-## Pendiente antes de publicar
+## Servicios enlazados
 
-- Enlace real a Hugging Face en `src/components/Social.astro` (Zenodo ya apunta a la comunidad `mesh-uah`) y, si se crean cuentas en redes, añadirlas ahí.
-- Crear el sitio `mesh-uah` en GoatCounter (o cambiar `goatcounter` en `src/i18n.ts`).
+- **Web**: https://gnosis-uah.github.io/mesh/ (español) y https://gnosis-uah.github.io/mesh/en/ (inglés).
+- **Ficha oficial**: https://portalcientifico.uah.es/proyectos/1908138/detalle (Portal Científico de la UAH).
+- **Zenodo**: comunidad `mesh-uah`, https://zenodo.org/communities/mesh-uah/, para datasets, software y modelos con DOI.
+- **Estadísticas**: GoatCounter, sitio `mesh-uah` (`goatcounter` en `src/i18n.ts`), sin cookies ni datos personales.
+- **Hugging Face**: todavía apunta a la portada general en `src/components/Social.astro`; cambiarlo cuando exista la organización del proyecto. Si se crean cuentas en redes sociales, añadirlas en el mismo fichero.
 
-El logotipo `public/img/aei.png` es el oficial MICIU+AEI que la AEI indica para los Proyectos de Generación de Conocimiento 2025 (sin cofinanciación FEDER), tomado de su guía de obligaciones de publicidad.
+## Identidad visual
+
+- Color de acento `#3b5bdb` (claro) y `#91a7ff` (oscuro) en `src/styles/global.css`.
+- `public/img/mesh-logo.png`: logotipo cuadrado, usado en Zenodo y en este README. `public/img/mesh-og.png`: imagen 1200×630 para redes sociales. `public/favicon.svg`: icono del sitio.
+- `public/img/aei.png`: logotipo oficial MICIU+AEI que la AEI indica para los Proyectos de Generación de Conocimiento 2025 (sin cofinanciación FEDER), tomado de su guía de obligaciones de publicidad. `public/img/netis.svg`: logotipo del grupo NetIS.
+- `public/img/fig-mfg.png` y `public/img/fig-reshaping.png`: figuras de la memoria científico-técnica usadas en «el proyecto».
 
 ## Despliegue en GitHub Pages
 
-El repositorio es https://github.com/GNOSIS-UAH/mesh. Cada push a `main` ejecuta `.github/workflows/deploy.yml` y publica el sitio en https://gnosis-uah.github.io/mesh/. Si se cambia el repositorio o el dominio, ajustar `site` y `base` en `astro.config.mjs`.
+El repositorio es público (requisito de GitHub Pages en la organización) y solo contiene lo que se ve en la web; la documentación interna del proyecto no va aquí. Cada push a `main` ejecuta `.github/workflows/deploy.yml` y publica el sitio en https://gnosis-uah.github.io/mesh/. Si se cambia el repositorio o el dominio, ajustar `site` y `base` en `astro.config.mjs`.
