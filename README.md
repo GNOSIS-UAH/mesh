@@ -43,7 +43,7 @@ El español se sirve en la raíz y el inglés en `/en/`. Cada página tiene su e
 
 ## Pendiente antes de publicar
 
-- Enlaces reales a Zenodo y Hugging Face en `src/components/Social.astro` y, si se crean cuentas en redes, añadirlas ahí.
+- Enlace real a Hugging Face en `src/components/Social.astro` (Zenodo ya apunta a la comunidad `mesh-uah`) y, si se crean cuentas en redes, añadirlas ahí.
 - Crear el sitio `mesh-uah` en GoatCounter (o cambiar `goatcounter` en `src/i18n.ts`).
 
 El logotipo `public/img/aei.png` es el oficial MICIU+AEI que la AEI indica para los Proyectos de Generación de Conocimiento 2025 (sin cofinanciación FEDER), tomado de su guía de obligaciones de publicidad.

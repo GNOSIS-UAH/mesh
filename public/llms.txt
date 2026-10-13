@@ -22,6 +22,7 @@ Agradecimiento: "Proyecto PID2025-174033NA-I00 financiado por MICIU/AEI/10.13039
 ## Enlaces
 
 - [Ficha del proyecto en el Portal Científico de la UAH](https://portalcientifico.uah.es/proyectos/1908138/detalle)
+- [Comunidad del proyecto en Zenodo](https://zenodo.org/communities/mesh-uah/)
 - [Repositorio de la web](https://github.com/GNOSIS-UAH/mesh)
 
 ## Contacto
