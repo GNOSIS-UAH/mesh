@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import Noticias from '../components/Noticias.astro';
+import Logos from '../components/Logos.astro';
+import Social from '../components/Social.astro';
+import { fichaUAH } from '../i18n';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base titulo="Inicio" lang="es">
+  <header class="post-header">
+    <h1 class="post-title"><span class="negrita">MESH</span></h1>
+    <p class="post-description">Metaheurísticas estructurales mejoradas multicapa para optimización distribuida.</p>
+  </header>
+
+  <div class="clearfix">
+    <div class="profile">
+      <div class="address">
+        <p>Universidad de Alcalá</p>
+        <p>MICIU / AEI</p>
+        <p>Generación de Conocimiento 2025</p>
+        <p>Sep. 2026 – ago. 2029</p>
+        <p>Ref. PID2025-174033NA-I00</p>
+        <p>IP: Enrique de la Hoz</p>
+        <p>IP: Luis de la Cruz</p>
+        <p><a href={fichaUAH} rel="noopener">Ficha en el Portal Científico</a></p>
+      </div>
+    </div>
+    <p>
+      MESH es un proyecto de investigación de la <a href="https://www.uah.es/">Universidad de Alcalá</a> sobre la
+      <strong>optimización de sistemas distribuidos</strong>: redes de comunicaciones, tráfico urbano, Internet de las
+      Cosas o mecanismos de ciberresiliencia. Optimizarlos es difícil por tres razones que se combinan: su escala, las
+      interrelaciones ocultas entre sus elementos y los bucles de realimentación que esas relaciones producen.
+    </p>
+    <p>
+      Las metaheurísticas clásicas escalan bien pero son ciegas a la estructura del problema. Las técnicas de paso de
+      mensajes y negociación la explotan, pero escalan mal. Las redes neuronales de grafos han demostrado que usar la
+      estructura dentro del propio algoritmo cambia el rendimiento. MESH traslada esa idea a la optimización: modela
+      cada sistema como un <a href={`${base}/proyecto`}>grafo factor multicapa</a> y diseña algoritmos que explotan
+      de forma nativa las relaciones que ese grafo expresa.
+    </p>
+    <p>
+      En esta web publicamos los <a href={`${base}/resultados`}>resultados</a> del proyecto conforme se consolidan,
+      las <a href={`${base}/publicaciones`}>publicaciones</a> y los <a href={`${base}/recursos`}>datasets, software y
+      modelos</a> que liberamos para que los experimentos se puedan reproducir.
+    </p>
+  </div>
+
+  <h2>noticias</h2>
+  <Noticias lang="es" />
+  <Logos lang="es" />
+  <Social />
+</Base>

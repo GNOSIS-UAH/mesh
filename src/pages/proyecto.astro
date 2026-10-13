@@ -1,0 +1,166 @@
+---
+import Base from '../layouts/Base.astro';
+import { fichaUAH, urlSitio } from '../i18n';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base titulo="El proyecto" lang="es">
+  <header class="post-header">
+    <h1 class="post-title">el proyecto</h1>
+    <p class="post-description">Motivación, hipótesis y objetivos de MESH.</p>
+  </header>
+
+  <div class="linea">
+    <h2>por qué</h2>
+    <p>
+      Los sistemas distribuidos sostienen buena parte de nuestra infraestructura cotidiana: la gestión del tráfico en
+      las ciudades, el Internet de las Cosas en la agricultura o la industria, los mecanismos de ciberresiliencia de las
+      redes de comunicación. Optimizarlos es un problema de ingeniería formidable, y la dificultad no es accidental.
+      Surge de la confluencia de tres factores: la <strong>escala</strong> de los despliegues, que hace inviable la
+      búsqueda exhaustiva; las <strong>interdependencias ocultas</strong> entre sus elementos, que convierten muchos de
+      estos problemas en NP-duros; y los <strong>bucles de realimentación</strong> que esas relaciones generan, sobre
+      todo cuando los elementos son agentes autónomos con intereses propios.
+    </p>
+    <p>
+      El estado del arte aborda estos retos solo en parte. Las metaheurísticas clásicas, como el temple simulado o los
+      algoritmos evolutivos, encuentran buenas soluciones a gran escala, pero no aprovechan la estructura de relaciones
+      del problema. Las técnicas de optimización distribuida basadas en paso de mensajes y negociación sí la explotan y
+      gestionan bien los comportamientos autointeresados, pero su escalabilidad es limitada.
+    </p>
+    <p>
+      En el aprendizaje automático, las redes neuronales de grafos han demostrado que trabajar directamente sobre la
+      estructura de los datos permite identificar relaciones latentes y resolver problemas antes intratables. MESH
+      traslada esa «conciencia estructural» al dominio de la optimización de sistemas distribuidos.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>hipótesis</h2>
+    <p>
+      Los algoritmos de optimización que integren y aprovechen de forma nativa las relaciones del problema, modelado
+      como un <strong>grafo factor multicapa</strong>, superarán a las metaheurísticas tradicionales ciegas a la
+      estructura, tanto en la calidad de las soluciones como en el tiempo de convergencia. Buscamos además que estas
+      técnicas tengan un comportamiento <em>anytime</em> y que sirvan para guiar un sistema distribuido hacia
+      resultados socialmente eficientes sin ignorar los objetivos de cada uno de sus agentes.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>objetivos</h2>
+    <h3>Modelar sistemas distribuidos como grafos factor multicapa</h3>
+    <p>
+      Desarrollar una representación formal que capture tanto la estructura de red de un sistema distribuido como las
+      dinámicas de interacción entre sus elementos, combinando las formulaciones de redes multicapa con el modelado de
+      interacciones de orden superior mediante grafos factor. El modelo se enriquecerá de forma automática: a partir
+      de datos reales o sintéticos, técnicas de aprendizaje autosupervisado en grafos identificarán relaciones ocultas
+      que se incorporan como nuevos atributos, enlaces o capas.
+    </p>
+    <figure class="figura">
+      <img src={`${base}/img/fig-mfg.png`} alt="Esquema del modelado de un grafo factor multicapa para un escenario Wi-Fi: a partir de los datos conocidos se generan las capas de puntos de acceso, interferencias y asociaciones alternativas, y un modelo predictivo añade el grafo factor, otras relaciones ocultas y la actualización de atributos." />
+      <figcaption>Modelado de un grafo factor multicapa para un escenario Wi-Fi. Las capas superiores se obtienen de los datos visibles; las relaciones ocultas se extraen con un modelo predictivo.</figcaption>
+    </figure>
+    <h3>Integrar la expresividad del modelo en las metaheurísticas</h3>
+    <p>
+      Adaptar las principales familias de algoritmos metaheurísticos para que exploten las relaciones expresadas en el
+      grafo factor multicapa: operadores de cruce y mutación conscientes de las relaciones, reducción del número de
+      variables según su importancia en la estructura y mecanismos de decisión que aceleren la convergencia, con
+      métricas que cuantifiquen la ganancia frente a los algoritmos originales.
+    </p>
+    <h3>Reconfigurar y optimizar la estructura mediante paso de mensajes</h3>
+    <p>
+      Explorar métodos distribuidos que, durante la propia optimización, detecten qué propiedades estructurales del
+      grafo facilitan o dificultan alcanzar buenas soluciones y las usen como puntos de palanca para inducir cambios en
+      el modelo. Llamamos a este proceso <strong>reconformado</strong> del grafo factor multicapa. Ayuda a superar
+      limitaciones intrínsecas del paso de mensajes, como el <em>over-squashing</em>, y se combina con técnicas de
+      incrustación de grafos para escenarios de gran tamaño y con mecanismos de negociación que equilibren objetivos
+      individuales y colectivos.
+    </p>
+    <figure class="figura">
+      <img src={`${base}/img/fig-reshaping.png`} alt="Ejemplo conceptual de reconformado: un problema de coloreado de nodos, su grafo factor equivalente, la acumulación de energía en algunos nodos tras varias iteraciones de belief propagation y la solución obtenida al eliminar los dos nodos de mayor energía." />
+      <figcaption>Reconformado distribuido en un problema de coloreado de nodos: grafo original, grafo factor, acumulación de energía y solución tras eliminar los nodos de mayor energía.</figcaption>
+    </figure>
+  </div>
+
+  <div class="linea">
+    <h2>casos de uso</h2>
+    <p>
+      MESH es un proyecto de investigación no orientada: el modelo y las técnicas son generales. Para validarlos se
+      trabajará con datos abiertos de tres dominios en los que el equipo tiene experiencia: las
+      <strong>comunicaciones inalámbricas</strong> (Wi-Fi y 5G), el <strong>transporte urbano</strong> por carretera y
+      la <strong>ciberseguridad</strong>, en particular la reconfiguración de redes frente a ataques. Entre los
+      beneficios esperados están la autoconfiguración de redes para resistir ciberataques y la reducción del consumo
+      energético.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>ciencia abierta</h2>
+    <p>
+      Los resultados se publicarán siguiendo los principios FAIR y en acceso abierto. Los modelos pre-entrenados se
+      distribuirán en <a href="https://huggingface.co/" rel="noopener">Hugging Face</a> y los datasets y versiones
+      estables del software, con DOI, en <a href="https://zenodo.org/" rel="noopener">Zenodo</a>, registrados en la
+      plataforma AI-on-Demand e integrados en la European Open Science Cloud. Se organizará un taller en el que se
+      mostrará cómo reproducir los experimentos de uno de los trabajos publicados a partir del código y los datos
+      liberados.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>impacto</h2>
+    <p>
+      La escalabilidad, las interdependencias y el comportamiento autointeresado han sido siempre las tres grandes
+      limitaciones de la optimización de sistemas distribuidos complejos. MESH propone un modelo genérico y un conjunto
+      de mecanismos distribuidos, apoyados en aprendizaje automático, que permiten abordarlas de forma conjunta y
+      cerrar la brecha entre las metaheurísticas de propósito general y la optimización distribuida sobre grafos.
+    </p>
+    <p>
+      Sus aplicaciones contribuyen a los Objetivos de Desarrollo Sostenible 11 (ciudades sostenibles, por la reducción
+      de congestión y emisiones), 7 (energía asequible y no contaminante, por la eficiencia de las redes inalámbricas)
+      y 9 (industria, innovación e infraestructura, por la ciberresiliencia de infraestructuras críticas). El diseño de
+      los algoritmos integra los requisitos de transparencia y supervisión humana del Reglamento de Inteligencia
+      Artificial de la UE, y la perspectiva de género se aplica en la auditoría de sesgos de los datos y en funciones
+      de coste que no penalicen patrones de movilidad complejos asociados a los cuidados.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>financiación</h2>
+    <p>
+      Proyecto <strong>PID2025-174033NA-I00</strong>, financiado por MICIU/AEI/10.13039/501100011033, dentro de la
+      convocatoria de Proyectos de Generación de Conocimiento 2025 del Plan Estatal de Investigación Científica,
+      Técnica y de Innovación 2024-2027. Modalidad de proyectos de investigación no orientada, tipo A. Duración: 36
+      meses, del 1 de septiembre de 2026 al 31 de agosto de 2029. Importe concedido: 85.000 €.
+      <a href={fichaUAH} rel="noopener">Ficha del proyecto en el Portal Científico de la UAH</a>.
+    </p>
+  </div>
+
+  <div class="linea" id="citar">
+    <h2>agradecimiento y cómo citar</h2>
+    <p>
+      Los artículos, repositorios, presentaciones y demás resultados derivados del proyecto deben incluir el
+      siguiente agradecimiento:
+    </p>
+    <pre class="cita">Proyecto PID2025-174033NA-I00 financiado por MICIU/AEI/10.13039/501100011033.</pre>
+    <pre class="cita" lang="en">Grant PID2025-174033NA-I00 funded by MICIU/AEI/10.13039/501100011033.</pre>
+    <p>Para citar el proyecto como tal:</p>
+    <pre class="cita">de la Hoz, E., de la Cruz Piris, L. et al. (2026–2029). MESH: Metaheurísticas estructurales mejoradas multicapa para optimización distribuida (PID2025-174033NA-I00). Universidad de Alcalá. {urlSitio}</pre>
+    <p class="nota">
+      El software, los datasets y los modelos tienen su propia cita, con DOI, en la página de <a href={`${base}/recursos`}>recursos</a>.
+    </p>
+  </div>
+
+  <div class="linea" id="transferencia">
+    <h2>transferencia y contacto</h2>
+    <p>
+      MESH es un proyecto de generación de conocimiento y no persigue una transferencia inmediata, pero sus técnicas
+      tienen aplicación directa en la configuración de redes de comunicaciones, la gestión del tráfico y la
+      ciberresiliencia. Nos interesa colaborar con operadores de red, gestores de movilidad y centros de operaciones
+      de seguridad que quieran validar estos métodos sobre sus propios escenarios. Las vías habituales son contratos de
+      investigación con la Universidad de Alcalá, cátedras de empresa y proyectos conjuntos en convocatorias nacionales
+      o europeas.
+    </p>
+    <p>
+      Contacto: Enrique de la Hoz, investigador principal,
+      <a href="mailto:enrique.delahoz@uah.es?subject=MESH%3A%20colaboraci%C3%B3n">enrique.delahoz@uah.es</a>.
+    </p>
+  </div>
+</Base>

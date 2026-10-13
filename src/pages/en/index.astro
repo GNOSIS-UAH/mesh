@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import Noticias from '../../components/Noticias.astro';
+import Logos from '../../components/Logos.astro';
+import Social from '../../components/Social.astro';
+import { fichaUAH } from '../../i18n';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base titulo="Home" lang="en">
+  <header class="post-header">
+    <h1 class="post-title"><span class="negrita">MESH</span></h1>
+    <p class="post-description">Multilayer Enhanced Structural metaHeuristics for distributed optimization.</p>
+  </header>
+
+  <div class="clearfix">
+    <div class="profile">
+      <div class="address">
+        <p>University of Alcalá</p>
+        <p>MICIU / AEI</p>
+        <p>Knowledge Generation Projects 2025</p>
+        <p>Sep 2026 – Aug 2029</p>
+        <p>Ref. PID2025-174033NA-I00</p>
+        <p>PI: Enrique de la Hoz</p>
+        <p>PI: Luis de la Cruz</p>
+        <p><a href={fichaUAH} rel="noopener">UAH research portal entry</a></p>
+      </div>
+    </div>
+    <p>
+      MESH is a research project at the <a href="https://www.uah.es/en/">University of Alcalá</a> on the
+      <strong>optimisation of distributed systems</strong>: communication networks, urban traffic, the Internet of
+      Things or cyber-resilience mechanisms. Optimising them is hard for three reasons that compound each other:
+      their scale, the hidden interrelationships among their elements and the feedback loops those relationships
+      produce.
+    </p>
+    <p>
+      Classical metaheuristics scale well but are blind to the structure of the problem. Message-passing and
+      negotiation techniques exploit that structure, but scale poorly. Graph neural networks have shown that using
+      the structure inside the algorithm itself changes performance. MESH brings that idea to optimisation: it models
+      each system as a <a href={`${base}/en/proyecto`}>multilayer factor graph</a> and designs algorithms that
+      natively exploit the relationships the graph expresses.
+    </p>
+    <p>
+      On this site we publish the project's <a href={`${base}/en/resultados`}>results</a> as they consolidate, its
+      <a href={`${base}/en/publicaciones`}>publications</a> and the <a href={`${base}/en/recursos`}>datasets,
+      software and models</a> we release so that experiments can be reproduced.
+    </p>
+  </div>
+
+  <h2>news</h2>
+  <Noticias lang="en" />
+  <Logos lang="en" />
+  <Social />
+</Base>

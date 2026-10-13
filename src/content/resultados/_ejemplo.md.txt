@@ -1,0 +1,16 @@
+Plantilla de resultado. Renombrar a <slug>.md para publicarlo (y su versión inglesa en en/<slug>.md).
+
+---
+titulo: "Generador de grafos factor multicapa para escenarios Wi-Fi"
+fecha: 2027-03-01
+tema: modelado      # modelado | optimizacion | reconfiguracion | casos | otros
+clase: resultado    # resultado | tesis | tfm | tfg (trabajo académico: añade autor, direccion, titulacion)
+resumen: "Una frase con el hallazgo principal."
+enlaces:
+  - etiqueta: "Repositorio"
+    url: "https://github.com/..."
+  - etiqueta: "Zenodo"
+    url: "https://doi.org/10.5281/zenodo..."
+---
+
+Texto opcional en Markdown con más detalle, figuras, etc.

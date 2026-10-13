@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import Cabecera from '../components/Cabecera.astro';
+import Pie from '../components/Pie.astro';
+import { textos, rutaAlterna, goatcounter, type Lang } from '../i18n';
+
+interface Props { titulo: string; descripcion?: string; lang?: Lang }
+const { titulo, lang = 'es', descripcion = textos[lang].descripcion } = Astro.props;
+const t = textos[lang];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const site = (Astro.site?.toString() ?? '').replace(/\/$/, '');
+const ruta = Astro.url.pathname.replace(base, '').replace(/\/$/, '') || '/';
+const otra = rutaAlterna(lang, ruta);
+const abs = (r: string) => `${site}${base}${r === '/' ? '/' : r + '/'}`;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo} | {t.tituloSitio}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={abs(ruta)} />
+    <link rel="alternate" hreflang={lang} href={abs(ruta)} />
+    <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es'} href={abs(otra)} />
+    <link rel="alternate" hreflang="x-default" href={abs(lang === 'es' ? ruta : otra)} />
+    <link rel="sitemap" href={`${base}/sitemap-index.xml`} />
+    <link rel="alternate" type="text/plain" title="llms.txt" href={`${base}/llms.txt`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MESH" />
+    <meta property="og:title" content={`${titulo} | ${t.tituloSitio}`} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={abs(ruta)} />
+    <meta property="og:image" content={`${site}${base}/img/mesh-og.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MESH, Universidad de Alcalá" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_GB'} />
+    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_GB' : 'es_ES'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" />
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+    {goatcounter && <script data-goatcounter={goatcounter} async src="https://gc.zgo.at/count.js"></script>}
+  </head>
+  <body>
+    <Cabecera lang={lang} />
+    <main id="contenido" class="contenedor"><slot /></main>
+    <Pie lang={lang} />
+  </body>
+</html>

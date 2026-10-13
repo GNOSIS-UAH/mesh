@@ -1,0 +1,29 @@
+# MESH
+
+> Proyecto de investigación de la Universidad de Alcalá (septiembre de 2026 a agosto de 2029) sobre metaheurísticas estructurales para la optimización de sistemas distribuidos, modelados como grafos factor multicapa. Referencia PID2025-174033NA-I00, financiado por MICIU/AEI/10.13039/501100011033 (Proyectos de Generación de Conocimiento 2025). Web en español, con versión en inglés en /en/.
+
+MESH (Metaheurísticas estructurales mejoradas multicapa para optimización distribuida / Multilayer Enhanced Structural metaHeuristics for distributed optimization) parte de que optimizar sistemas distribuidos es difícil por su escala, sus interdependencias ocultas y los bucles de realimentación entre agentes autointeresados. Las metaheurísticas clásicas escalan pero son ciegas a la estructura; el paso de mensajes y la negociación la explotan pero escalan mal. MESH traslada la «conciencia estructural» de las redes neuronales de grafos a la optimización: modela cada sistema como un grafo factor multicapa (MFG) enriquecido con relaciones ocultas extraídas automáticamente, adapta las metaheurísticas para explotar esas relaciones y explora métodos distribuidos de paso de mensajes que reconforman la estructura del grafo durante la optimización. Casos de uso: comunicaciones inalámbricas (Wi-Fi, 5G), transporte urbano y ciberseguridad. Ciencia abierta: modelos en Hugging Face, datos y software con DOI en Zenodo, AIOD y EOSC.
+
+Investigadores principales: Enrique de la Hoz de la Hoz y Luis de la Cruz Piris. Grupo NetIS (subgrupo GNOSIS) de la Universidad de Alcalá. Equipo: Iván Marsá Maestre, David Orden Martín, Susel Fernández Melián, Marino Tejedor Romero, Guillermo Esteban Pascual; equipo de trabajo: Catholijn Jonker (TU Delft), Reyhan Aydoğan (Özyeğin), Jaime García Reinoso.
+
+## Páginas
+
+- [Inicio](https://gnosis-uah.github.io/mesh/): presentación y noticias ([English](https://gnosis-uah.github.io/mesh/en/))
+- [El proyecto](https://gnosis-uah.github.io/mesh/proyecto/): por qué, hipótesis, objetivos, casos de uso, ciencia abierta, impacto, financiación, agradecimiento y cómo citar, transferencia y contacto ([English](https://gnosis-uah.github.io/mesh/en/proyecto/))
+- [Resultados](https://gnosis-uah.github.io/mesh/resultados/): hallazgos del proyecto y tesis o trabajos académicos realizados en su marco ([English](https://gnosis-uah.github.io/mesh/en/resultados/))
+- [Publicaciones](https://gnosis-uah.github.io/mesh/publicaciones/): artículos, congresos, charlas y divulgación ([English](https://gnosis-uah.github.io/mesh/en/publicaciones/))
+- [Recursos](https://gnosis-uah.github.io/mesh/recursos/): datasets, software y modelos en abierto ([English](https://gnosis-uah.github.io/mesh/en/recursos/))
+- [Equipo](https://gnosis-uah.github.io/mesh/equipo/): investigadores, colaboradores y contacto ([English](https://gnosis-uah.github.io/mesh/en/equipo/))
+
+## Cómo citar
+
+Agradecimiento: "Proyecto PID2025-174033NA-I00 financiado por MICIU/AEI/10.13039/501100011033."
+
+## Enlaces
+
+- [Ficha del proyecto en el Portal Científico de la UAH](https://portalcientifico.uah.es/proyectos/1908138/detalle)
+- [Repositorio de la web](https://github.com/GNOSIS-UAH/mesh)
+
+## Contacto
+
+Enrique de la Hoz, enrique.delahoz@uah.es. Escuela Politécnica Superior, Universidad de Alcalá, Alcalá de Henares (Madrid). Web personal: https://edelahozuah.github.io/

@@ -1,0 +1,13 @@
+---
+import { textos, type Lang } from '../i18n';
+interface Props { lang: Lang; nota?: boolean; estilo?: string }
+const { lang, nota = true, estilo } = Astro.props;
+const t = textos[lang];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const altNetis = lang === 'en' ? 'NetIS, Networks and Intelligent Systems research group, UAH' : 'NetIS, Grupo de Investigación Redes y Sistemas Inteligentes, UAH';
+---
+<div class="logos" style={estilo}>
+  <a href="https://netis.web.uah.es/" rel="noopener"><img class="alto" src={`${base}/img/netis.svg`} alt={altNetis} /></a>
+  <a href="https://www.aei.gob.es/" rel="noopener"><img class="alto" src={`${base}/img/aei.png`} alt={t.aei} /></a>
+  {nota && <p class="logos__nota">{t.logosNota} <a href="https://netis.web.uah.es/" rel="noopener">NetIS</a> {t.logosNota2} <a href="https://www.aei.gob.es/" rel="noopener">MICIU/AEI</a>{t.logosNota3}</p>}
+</div>

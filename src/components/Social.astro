@@ -1,0 +1,12 @@
+---
+import { repositorio } from '../i18n';
+interface Props { nota?: string }
+const { nota } = Astro.props;
+---
+<div class="social">
+  <a href="mailto:enrique.delahoz@uah.es">enrique.delahoz@uah.es</a>
+  <a href={repositorio} rel="noopener">GitHub</a>
+  <a href="https://zenodo.org/" rel="noopener">Zenodo</a>
+  <a href="https://huggingface.co/" rel="noopener">Hugging Face</a>
+  {nota && <p class="contact-note">{nota}</p>}
+</div>

@@ -1,0 +1,28 @@
+---
+// Tesis doctorales y trabajos fin de grado o máster realizados en el marco del
+// proyecto. Se genera a partir de las entradas de resultados con clase
+// "tesis", "tfm" o "tfg".
+import { getCollection } from 'astro:content';
+import { textos, prefijo, type Lang } from '../i18n';
+interface Props { lang: Lang; titulo?: string; intro?: string }
+const { lang, titulo, intro } = Astro.props;
+const t = textos[lang];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const trabajos = (await getCollection('resultados', ({ id, data }) => data.clase !== 'resultado' && (lang === 'en') === id.startsWith('en/')))
+  .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf());
+const ancla = (id: string) => id.replace(/^en\//, '');
+---
+{trabajos.length > 0 && (
+  <>
+  {titulo && <h2>{titulo}</h2>}
+  {intro && <p>{intro}</p>}
+  <ul class="personas">
+    {trabajos.map((r) => (
+      <li class="persona">
+        <span class="title">{r.data.autor}</span>
+        <span class="rol">{t.clases[r.data.clase as keyof typeof t.clases]} · <a href={`${base}${prefijo(lang)}/resultados#${ancla(r.id)}`}>{r.data.titulo}</a> · {r.data.fecha.getFullYear()}</span>
+      </li>
+    ))}
+  </ul>
+  </>
+)}

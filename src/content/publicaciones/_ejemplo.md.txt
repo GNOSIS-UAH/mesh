@@ -1,0 +1,13 @@
+Plantilla de publicación. Renombrar a <slug>.md para publicarla.
+
+---
+titulo: "Título del artículo"
+autores: "E. de la Hoz, L. de la Cruz Piris, ..."
+venue: "Computer Networks"
+abrev: "COMNET"     # etiqueta corta; si falta, se generan las iniciales
+anio: 2027
+tipo: revista        # revista | congreso | capitulo | charla | divulgacion
+estado: enviado      # enviado | aceptado | publicado
+doi: "10.1016/..."
+url: "https://..."
+---

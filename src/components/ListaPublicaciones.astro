@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import { textos, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = textos[lang];
+const todas = (await getCollection('publicaciones')).sort((a, b) => b.data.anio - a.data.anio);
+const grupos = (Object.keys(t.tiposPub) as (keyof typeof t.tiposPub)[])
+  .map((tipo) => ({ tipo, items: todas.filter((p) => p.data.tipo === tipo) })).filter((g) => g.items.length > 0);
+const abrev = (p: (typeof todas)[number]) => p.data.abrev ?? p.data.venue.split(/\s+/).map((w) => w[0]).join('').toUpperCase().slice(0, 6);
+const campo = (p: (typeof todas)[number], c: 'titulo' | 'venue') => (lang === 'en' && p.data[`${c}_en`]) || p.data[c];
+---
+{grupos.length === 0 ? (
+  <p class="nota">{t.sinPublicaciones}</p>
+) : grupos.map((g) => (
+  <>
+    <h2 class="bibliography">{t.tiposPub[g.tipo]}</h2>
+    <ol class="bibliography">
+      {g.items.map((p) => (
+        <li>
+          <div class="row">
+            <div class="abbr"><span class="badge">{abrev(p)}</span></div>
+            <div class="cuerpo">
+              <div class="title">{campo(p, 'titulo')}</div>
+              <div class="author">{p.data.autores}</div>
+              <div class="periodical"><em>{campo(p, 'venue')}</em>, {p.data.anio}</div>
+              <div class="links">
+                {p.data.doi && <a class="btn" href={`https://doi.org/${p.data.doi}`} rel="noopener">DOI</a>}
+                {p.data.url && <a class="btn" href={p.data.url} rel="noopener">{t.enlace}</a>}
+                {p.data.estado !== 'publicado' && <span class="estado">{t.estados[p.data.estado]}</span>}
+              </div>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </>
+))}

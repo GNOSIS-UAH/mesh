@@ -1,0 +1,13 @@
+Plantilla de recurso. Renombrar a <slug>.md para publicarlo.
+
+---
+titulo: "mesh-mfg-datasets"
+tipo: dataset        # dataset | software | modelo | documento
+resumen: "Qué contiene y para qué sirve."
+resumen_en: "Optional English summary."
+licencia: "CC BY 4.0"
+github: "https://github.com/..."
+zenodo: "https://doi.org/10.5281/zenodo..."
+huggingface: "https://huggingface.co/..."
+cita: "Autores (2027). Título. Zenodo. DOI"
+---

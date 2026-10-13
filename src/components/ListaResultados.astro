@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import { textos, fecha, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = textos[lang];
+const todos = (await getCollection('resultados', ({ id }) => (lang === 'en') === id.startsWith('en/')))
+  .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf());
+const conContenido = await Promise.all(todos.map(async (r) => ({ r, Content: (await render(r)).Content })));
+const resultados = conContenido.filter(({ r }) => r.data.clase === 'resultado');
+const trabajos = conContenido.filter(({ r }) => r.data.clase !== 'resultado');
+const ancla = (id: string) => id.replace(/^en\//, '');
+---
+{resultados.length === 0 ? (
+  <p class="nota">{t.sinResultados}</p>
+) : (
+  <ol class="bibliography">
+    {resultados.map(({ r, Content }) => (
+      <li id={ancla(r.id)}>
+        <div class="row">
+          <div class="abbr"><span class="badge">{t.temas[r.data.tema]}</span></div>
+          <div class="cuerpo">
+            <div class="title">{r.data.titulo}</div>
+            <div class="periodical nota">{fecha(r.data.fecha, lang, { month: 'long', year: 'numeric' })}</div>
+            <p style="margin:.25rem 0 0">{r.data.resumen}</p>
+            <div class="prosa"><Content /></div>
+            {r.data.enlaces.length > 0 && (
+              <div class="links">{r.data.enlaces.map((e) => <a class="btn" href={e.url} rel="noopener">{e.etiqueta}</a>)}</div>
+            )}
+          </div>
+        </div>
+      </li>
+    ))}
+  </ol>
+)}
+
+{trabajos.length > 0 && (
+  <>
+    <h2 class="bibliography">{t.formacion}</h2>
+    <ol class="bibliography">
+      {trabajos.map(({ r, Content }) => (
+        <li id={ancla(r.id)}>
+          <div class="row">
+            <div class="abbr"><span class="badge">{t.clases[r.data.clase as keyof typeof t.clases]}</span></div>
+            <div class="cuerpo">
+              <div class="title">{r.data.titulo}</div>
+              <div class="author">{r.data.autor}{r.data.direccion && <span class="nota">{` · ${t.dirigidoPor} ${r.data.direccion}`}</span>}</div>
+              <div class="periodical"><em>{r.data.titulacion}</em>, {r.data.fecha.getFullYear()}</div>
+              <p style="margin:.25rem 0 0">{r.data.resumen}</p>
+              <div class="prosa"><Content /></div>
+              {r.data.enlaces.length > 0 && (
+                <div class="links">{r.data.enlaces.map((e) => <a class="btn" href={e.url} rel="noopener">{e.etiqueta}</a>)}</div>
+              )}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </>
+)}

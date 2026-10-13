@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import { textos, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = textos[lang];
+const equipo = (await getCollection('equipo')).sort((a, b) => a.data.orden - b.data.orden);
+const grupos = (Object.keys(t.tiposEquipo) as (keyof typeof t.tiposEquipo)[])
+  .map((tipo) => ({ tipo, items: equipo.filter((p) => p.data.tipo === tipo) })).filter((g) => g.items.length > 0);
+---
+{grupos.map((g) => (
+  <>
+    <h2>{t.tiposEquipo[g.tipo]}</h2>
+    <ul class="personas">
+      {g.items.map((p) => (
+        <li class="persona">
+          <span class="title">{p.data.nombre}</span>
+          <span class="rol">{(lang === 'en' && p.data.rol_en) || p.data.rol} · {p.data.grupo}</span>
+          <span class="links">
+            {p.data.orcid && <a class="btn" href={`https://orcid.org/${p.data.orcid}`} rel="noopener">ORCID</a>}
+            {p.data.web && <a class="btn" href={p.data.web} rel="noopener">Web</a>}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </>
+))}

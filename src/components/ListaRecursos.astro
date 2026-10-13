@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import { textos, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = textos[lang];
+const todos = await getCollection('recursos');
+const grupos = (Object.keys(t.tiposRec) as (keyof typeof t.tiposRec)[])
+  .map((tipo) => ({ tipo, items: todos.filter((r) => r.data.tipo === tipo) })).filter((g) => g.items.length > 0);
+---
+{grupos.length === 0 ? (
+  <p class="nota">{t.sinRecursos}</p>
+) : grupos.map((g) => (
+  <>
+    <h2 class="category">{t.tiposRec[g.tipo]}</h2>
+    <div class="projects">
+      {g.items.map((r) => (
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">{r.data.titulo}</h3>
+            <p class="card-text">{(lang === 'en' && r.data.resumen_en) || r.data.resumen}</p>
+            {r.data.cita && <p class="card-text nota" style="margin-top:.5rem">{t.comoCitar}: {r.data.cita}</p>}
+          </div>
+          <div class="card-pie">
+            {r.data.github && <a href={r.data.github} rel="noopener">GitHub</a>}
+            {r.data.zenodo && <a href={r.data.zenodo} rel="noopener">Zenodo</a>}
+            {r.data.huggingface && <a href={r.data.huggingface} rel="noopener">Hugging Face</a>}
+            {r.data.licencia && <span>{r.data.licencia}</span>}
+          </div>
+        </div>
+      ))}
+    </div>
+  </>
+))}

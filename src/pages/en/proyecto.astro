@@ -1,0 +1,162 @@
+---
+import Base from '../../layouts/Base.astro';
+import { fichaUAH, urlSitio } from '../../i18n';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base titulo="The project" lang="en">
+  <header class="post-header">
+    <h1 class="post-title">the project</h1>
+    <p class="post-description">Motivation, hypothesis and objectives of MESH.</p>
+  </header>
+
+  <div class="linea">
+    <h2>why</h2>
+    <p>
+      Distributed systems underpin much of our everyday infrastructure: traffic management in cities, the Internet of
+      Things in agriculture and industry, the cyber-resilience mechanisms of communication networks. Optimising them
+      is a formidable engineering problem, and the difficulty is not accidental. It arises from three factors acting
+      together: the <strong>scale</strong> of deployments, which rules out exhaustive search; the
+      <strong>hidden interdependencies</strong> among their elements, which make many of these problems NP-hard; and
+      the <strong>feedback loops</strong> those relationships generate, especially when the elements are autonomous,
+      self-interested agents.
+    </p>
+    <p>
+      The state of the art addresses these challenges only in part. Classical metaheuristics such as simulated
+      annealing or evolutionary algorithms find good solutions at scale, but do not exploit the relational structure of
+      the problem. Distributed optimisation techniques based on message passing and negotiation do exploit it and
+      handle self-interested behaviour well, but their scalability is limited.
+    </p>
+    <p>
+      In machine learning, graph neural networks have shown that working directly on the structure of the data makes it
+      possible to identify latent relationships and solve previously intractable problems. MESH brings that
+      "structural awareness" to the optimisation of distributed systems.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>hypothesis</h2>
+    <p>
+      Optimisation algorithms that natively integrate and exploit the relationships of the problem, modelled as a
+      <strong>multilayer factor graph</strong>, will outperform traditional structure-blind metaheuristics both in
+      solution quality and in convergence time. We also want these techniques to behave in an <em>anytime</em>
+      fashion and to serve to steer a distributed system towards socially efficient outcomes without ignoring the goals
+      of each of its agents.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>objectives</h2>
+    <h3>Model distributed systems as multilayer factor graphs</h3>
+    <p>
+      Develop a formal representation that captures both the network structure of a distributed system and the
+      interaction dynamics among its elements, combining multilayer network formulations with the modelling of
+      higher-order interactions through factor graphs. The model is enriched automatically: from real or synthetic
+      data, graph self-supervised learning techniques identify hidden relationships that are added as new attributes,
+      links or layers.
+    </p>
+    <figure class="figura">
+      <img src={`${base}/img/fig-mfg.png`} alt="Diagram of multilayer factor graph modelling for a Wi-Fi scenario: known data generate the access point, interference and alternative association layers, and a predictive model adds the factor graph, other hidden relationships and attribute updates. Labels in Spanish." />
+      <figcaption>Multilayer factor graph modelling for a Wi-Fi scenario. The upper layers come from visible data; hidden relationships are extracted with a predictive model. Labels in Spanish.</figcaption>
+    </figure>
+    <h3>Bring the expressiveness of the model into metaheuristics</h3>
+    <p>
+      Adapt the main families of metaheuristic algorithms so that they exploit the relationships expressed in the
+      multilayer factor graph: relationship-aware crossover and mutation operators, reduction of the number of
+      variables according to their importance in the structure, and decision mechanisms that speed up convergence,
+      with metrics that quantify the gain over the original algorithms.
+    </p>
+    <h3>Reconfigure and optimise the structure through message passing</h3>
+    <p>
+      Explore distributed methods that, during optimisation itself, detect which structural properties of the graph
+      help or hinder reaching good solutions and use them as leverage points to induce changes in the model. We call
+      this process multilayer factor graph <strong>reshaping</strong>. It helps overcome intrinsic limitations of
+      message passing such as <em>over-squashing</em>, and is combined with graph embedding techniques for large
+      scenarios and with negotiation mechanisms that balance individual and collective goals.
+    </p>
+    <figure class="figura">
+      <img src={`${base}/img/fig-reshaping.png`} alt="Conceptual example of reshaping: a node colouring problem, its equivalent factor graph, the energy accumulated in some nodes after several belief propagation iterations, and the solution obtained by removing the two highest-energy nodes." />
+      <figcaption>Distributed reshaping on a node colouring problem: original graph, factor graph, energy accumulation and solution after removing the highest-energy nodes.</figcaption>
+    </figure>
+  </div>
+
+  <div class="linea">
+    <h2>use cases</h2>
+    <p>
+      MESH is a non-oriented research project: the model and the techniques are general. To validate them we will
+      work with open data from three domains where the team has experience: <strong>wireless communications</strong>
+      (Wi-Fi and 5G), urban <strong>road transport</strong> and <strong>cybersecurity</strong>, in particular network
+      reconfiguration against attacks. Expected benefits include network self-configuration to withstand cyberattacks
+      and reduced energy consumption.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>open science</h2>
+    <p>
+      Results will be published following the FAIR principles and in open access. Pre-trained models will be
+      distributed on <a href="https://huggingface.co/" rel="noopener">Hugging Face</a>, and datasets and stable software
+      releases, with DOIs, on <a href="https://zenodo.org/" rel="noopener">Zenodo</a>, registered on the AI-on-Demand
+      platform and integrated into the European Open Science Cloud. A workshop will show how to reproduce the
+      experiments of one of the published papers from the released code and data.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>impact</h2>
+    <p>
+      Scalability, interdependencies and self-interested behaviour have always been the three main limitations of
+      optimising complex distributed systems. MESH proposes a generic model and a set of distributed mechanisms,
+      supported by machine learning, that address them together and close the gap between general-purpose
+      metaheuristics and graph-based distributed optimisation.
+    </p>
+    <p>
+      Its applications contribute to Sustainable Development Goals 11 (sustainable cities, through less congestion and
+      emissions), 7 (affordable and clean energy, through more efficient wireless networks) and 9 (industry,
+      innovation and infrastructure, through the cyber-resilience of critical infrastructure). The design of the
+      algorithms integrates the transparency and human oversight requirements of the EU AI Act, and the gender
+      perspective is applied in bias audits of the data and in cost functions that do not penalise complex mobility
+      patterns associated with care work.
+    </p>
+  </div>
+
+  <div class="linea">
+    <h2>funding</h2>
+    <p>
+      Grant <strong>PID2025-174033NA-I00</strong> funded by MICIU/AEI/10.13039/501100011033, under the 2025 call for
+      Knowledge Generation Projects of the Spanish State Plan for Scientific, Technical and Innovation Research
+      2024-2027. Non-oriented research projects, type A. Duration: 36 months, from 1 September 2026 to 31 August
+      2029. Amount awarded: €85,000.
+      <a href={fichaUAH} rel="noopener">Project entry on the UAH research portal</a>.
+    </p>
+  </div>
+
+  <div class="linea" id="citar">
+    <h2>acknowledgement and how to cite</h2>
+    <p>
+      Papers, repositories, presentations and any other output derived from the project should include the
+      following acknowledgement:
+    </p>
+    <pre class="cita">Grant PID2025-174033NA-I00 funded by MICIU/AEI/10.13039/501100011033.</pre>
+    <pre class="cita" lang="es">Proyecto PID2025-174033NA-I00 financiado por MICIU/AEI/10.13039/501100011033.</pre>
+    <p>To cite the project itself:</p>
+    <pre class="cita">de la Hoz, E., de la Cruz Piris, L. et al. (2026–2029). MESH: Multilayer Enhanced Structural metaHeuristics for distributed optimization (PID2025-174033NA-I00). University of Alcalá. {urlSitio}</pre>
+    <p class="nota">
+      Software, datasets and models have their own citation, with DOI, on the <a href={`${base}/en/recursos`}>resources</a> page.
+    </p>
+  </div>
+
+  <div class="linea" id="transferencia">
+    <h2>technology transfer and contact</h2>
+    <p>
+      MESH is a knowledge generation project and does not pursue immediate transfer, but its techniques apply directly
+      to the configuration of communication networks, traffic management and cyber-resilience. We are interested in
+      working with network operators, mobility managers and security operations centres who want to validate these
+      methods on their own scenarios. The usual routes are research contracts with the University of Alcalá,
+      industry-sponsored chairs and joint projects under national or European calls.
+    </p>
+    <p>
+      Contact: Enrique de la Hoz, principal investigator,
+      <a href="mailto:enrique.delahoz@uah.es?subject=MESH%3A%20collaboration">enrique.delahoz@uah.es</a>.
+    </p>
+  </div>
+</Base>

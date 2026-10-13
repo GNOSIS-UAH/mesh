@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import ListaEquipo from '../../components/ListaEquipo.astro';
+import Formacion from '../../components/Formacion.astro';
+import Logos from '../../components/Logos.astro';
+import Social from '../../components/Social.astro';
+---
+<Base titulo="Team" lang="en">
+  <header class="post-header">
+    <h1 class="post-title">team</h1>
+    <p class="post-description">Researchers from the NetIS group at the University of Alcalá and international collaborators.</p>
+  </header>
+
+  <p>
+    MESH brings together researchers from the <strong><a href="https://netis.web.uah.es/" rel="noopener">NetIS</a></strong>
+    (Networks and Intelligent Systems) group at the University of Alcalá, through its GNOSIS subgroup (Geometry,
+    Networks and Optimization for Services and Intelligent Systems), with experience in automated negotiation,
+    graph-based distributed optimisation, metaheuristics, graph theory and computational geometry, wireless networks,
+    transport and cybersecurity. The work team adds international leaders in automated negotiation and communications.
+  </p>
+
+  <Logos lang="en" nota={false} estilo="margin:1rem 0 1rem" />
+  <ListaEquipo lang="en" />
+
+  <Formacion lang="en" titulo="theses and academic work" intro="PhD theses and bachelor's or master's theses carried out within the project." />
+
+  <h2>collaboration</h2>
+  <p>
+    The project maintains active collaborations with the MIT Center for Collective Intelligence, Delft University of
+    Technology, Özyeğin University, Kyoto University and the University of Massachusetts Dartmouth, and hosts MIT
+    students through the MISTI MIT-Spain programme.
+  </p>
+
+  <Social nota="Escuela Politécnica Superior, University of Alcalá. Ctra. Madrid-Barcelona, km 33.600. 28805 Alcalá de Henares, Madrid, Spain." />
+</Base>
