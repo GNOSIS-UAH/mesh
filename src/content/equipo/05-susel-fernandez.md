@@ -1,7 +1,7 @@
 ---
 nombre: "Susel Fernández Melián"
-rol: "Profesora Permanente Laboral"
-rol_en: "Permanent Lecturer"
+rol: "Profesora Titular de Universidad"
+rol_en: "Associate Professor"
 grupo: "NetIS / GNOSIS, Universidad de Alcalá"
 tipo: investigacion
 orden: 5
